@@ -128,7 +128,6 @@ function closeNav() {
 }
 </script>
 	<!--___________________search bar________________________-->
-	<!--
 	<div class="srch">
 		<form class="navbar-form" method="post" name="form1">
 			
@@ -137,7 +136,8 @@ function closeNav() {
 					<span class="glyphicon glyphicon-search"></span>
 				</button>
  	</form>
-		<form class="navbar-form" method="post" name="form1">
+		<!--
+	<form class="navbar-form" method="post" name="form1">
 			
 				<input class="form-control" type="text" name="bid" placeholder="Enter Book ID" required="">
 				<button style="background-color: #6db6b9e6;" type="submit" name="submit1" class="btn btn-default">Delete
@@ -214,17 +214,24 @@ function closeNav() {
 				echo "<td>"; echo $row['status']; echo "</td>";
 				echo "<td>"; echo $row['quantity']; echo "</td>";
 				echo "<td>"; echo $row['department']; echo "</td>";
-				echo "<td>"; echo "<div><button type='submit' name='submit1'><i style=\"color: red;\" class=\"glyphicon glyphicon-remove\"></div>"; echo "</td>";
-
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1'><i style=\"color: red;\" class=\"glyphicon glyphicon-remove\"></i> remove</button></form>"; echo "</td>";
+$_SESSION['bremove']=$row['bid'];
 				echo "</tr>";
 			}
 		echo "</table>";
 		}
+/* 		if(isset($_POST['submit5']))
+		{
+			echo "kam lagxa ki nae";
+		} */
 		if(isset($_POST['submit1']))
 		{
+			
+			
+			
 			if(isset($_SESSION['login_user1']))
 			{
-				mysqli_query($db,"DELETE from books where bid = '$_POST[bid]'; ");
+				mysqli_query($db,"DELETE from books where book.bid = '$_SESSION[bremove]'; ");
 				?>
 					<script type="text/javascript">
 						alert("Delete Successful.");
