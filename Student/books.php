@@ -165,7 +165,7 @@ function closeNav() {
   document.getElementById("main").style.marginLeft= "0";
   document.getElementById("trend").style.marginLeft = "0";
 
-  document.body.style.backgroundColor = "white";
+  document.body.style.backgroundColor = "white";    
 }
 </script>
 
@@ -173,7 +173,21 @@ function closeNav() {
 
 	<div class="srch">
 		<form class="navbar-form" method="post" name="form1">
-			
+			<!--option eta bata suru
+			<label for="department">Choose a Department: </label>
+			<select name="department">
+				<optgroup label="Educational">
+					<option>BCA</option>
+					<option>BSCIT</option>
+					<option>ECE</option>
+				</optgroup>
+				<optgroup label="Entertainment">
+					<option>Action</option>
+					<option>Comedy</option>
+					<option>Science</option>
+
+				</optgroup>
+			</select>-->
 				<input class="form-control" type="text" name="search" placeholder="search books.." required="">
 				<button style="background-color: #6db6b9e6;" type="submit" name="submit" class="btn btn-default">
 					<span class="glyphicon glyphicon-search"></span>
@@ -196,6 +210,7 @@ function closeNav() {
 
 		if(isset($_POST['submit']))
 		{
+
 			$q=mysqli_query($db,"SELECT * from books where name like '%$_POST[search]%' OR authors like '%$_POST[search]%' OR bid like '%$_POST[search]%' OR department like '%$_POST[search]%'");
 
 			if(mysqli_num_rows($q)==0)

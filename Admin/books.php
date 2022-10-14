@@ -150,7 +150,7 @@ function closeNav() {
 
 		if(isset($_POST['submit']))
 		{
-			$q=mysqli_query($db,"SELECT * from books where name like '%$_POST[search]%' ");
+			$q=mysqli_query($db,"SELECT * from books where name like '%$_POST[search]%' OR authors like '%$_POST[search]%' OR bid like '%$_POST[search]%' OR department like '%$_POST[search]%'");
 
 			if(mysqli_num_rows($q)==0)
 			{
@@ -168,6 +168,8 @@ function closeNav() {
 				echo "<th>"; echo "Status";  echo "</th>";
 				echo "<th>"; echo "Quantity";  echo "</th>";
 				echo "<th>"; echo "Department";  echo "</th>";
+				echo "<th>"; echo "";  echo "</th>";
+
 			echo "</tr>";	
 
 			while($row=mysqli_fetch_assoc($q))
@@ -180,6 +182,8 @@ function closeNav() {
 				echo "<td>"; echo $row['status']; echo "</td>";
 				echo "<td>"; echo $row['quantity']; echo "</td>";
 				echo "<td>"; echo $row['department']; echo "</td>";
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1'><i  style=\"color: red;\" class=\"glyphicon glyphicon-remove\"></i> remove</button></form>"; echo "</td>";
+				$_check['id']=$row['bid'];
 
 				echo "</tr>";
 			}
@@ -214,8 +218,8 @@ function closeNav() {
 				echo "<td>"; echo $row['status']; echo "</td>";
 				echo "<td>"; echo $row['quantity']; echo "</td>";
 				echo "<td>"; echo $row['department']; echo "</td>";
-				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1'><i style=\"color: red;\" class=\"glyphicon glyphicon-remove\"></i> remove</button></form>"; echo "</td>";
-$_SESSION['bremove']=$row['bid'];
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1'><i  style=\"color: red;\" class=\"glyphicon glyphicon-remove\"></i> remove</button></form>"; echo "</td>";
+				$_check['id']=$row['bid'];
 				echo "</tr>";
 			}
 		echo "</table>";
@@ -230,13 +234,19 @@ $_SESSION['bremove']=$row['bid'];
 			
 			
 			if(isset($_SESSION['login_user1']))
-			{
-				mysqli_query($db,"DELETE from books where book.bid = '$_SESSION[bremove]'; ");
+			{	
+				
+					$id=$_check['id'];
+				mysqli_query($db,"DELETE from books where books.bid = '$id'; ");
 				?>
 					<script type="text/javascript">
 						alert("Delete Successful.");
 					</script>
+					      <script type="text/javascript">
+       							 window.location="books.php"
+      						</script>
 				<?php
+				
 			}
 			else
 			{

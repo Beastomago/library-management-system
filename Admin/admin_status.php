@@ -217,7 +217,8 @@ function closeNav() {
 		}
         if(isset($_POST['submit1']))
         {
-            echo "check";
+            mysqli_query($db,"DELETE  from  `admin`  where `admin`.`username` = '$_SESSION[test_name]' and status = '';");
+            unset($_SESSION['test_name']);
         }
         if(isset($_POST['submit2']))
         {
