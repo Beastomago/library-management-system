@@ -35,13 +35,11 @@
           ?>
                 <ul class="nav navbar-nav">
                   <li><a href="profile.php">PROFILE</a></li>
-                  <li><a href="fine.php">FINES</a></li>
-
+<!--                  <li><a href="fine.php">FINES</a></li>
+ -->
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                  <li><a href="message.php"><span class="glyphicon-envelope"></span>
-                  <span class="badge bg-green">
-                  <?php echo $c['total'];?> </span></a></li>
+
                   <li><a href="">
                     <div style="color: white">
                       <?php

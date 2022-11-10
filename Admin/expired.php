@@ -161,13 +161,13 @@ th,td
       {
         ?>
 
-      <div style="float: left; padding: 25px;">
+<!--       <div style="float: left; padding: 25px;">
       <form method="post" action="">
           <button name="submit2" type="submit" class="btn btn-default" style="background-color: #06861a; color: yellow;">RETURNED</button> 
                       &nbsp&nbsp
           <button name="submit3" type="submit" class="btn btn-default" style="background-color: red; color: yellow;">EXPIRED</button>
       </form>
-      </div>
+      </div> -->
 
           <div class="srch" >
           <br>
@@ -182,7 +182,7 @@ th,td
         if(isset($_POST['submit']))
         {
 
-          $res=mysqli_query($db,"SELECT * FROM `issue_book` where username='$_POST[username]' and bid='$_POST[bid]' ;");
+/*           $res=mysqli_query($db,"SELECT * FROM `issue_book` where username='$_POST[username]' and bid='$_POST[bid]' ;");
       
       while($row=mysqli_fetch_assoc($res))
       {
@@ -195,20 +195,29 @@ th,td
           $day= floor($diff/(60*60*24)); 
           $fine= $day*10;
         }
-      }
-          $x= date("Y-m-d"); 
+      } */
+         /*  $x= date("Y-m-d"); 
           mysqli_query($db,"INSERT INTO `fine` VALUES ('$_POST[username]', '$_POST[bid]', '$x', '$day', '$fine','not paid') ;");
+ */
 
-
-          $var1='<p style="color:yellow; background-color:green;">RETURNED</p>';
-          mysqli_query($db,"UPDATE issue_book SET approve='$var1' where username='$_POST[username]' and bid='$_POST[bid]' ");
+        //  $var1='<p style="color:yellow; background-color:green;">RETURNED</p>';
+          mysqli_query($db,"DELETE  FROM `issue_book` where username='$_POST[username]' and bid='$_POST[bid]' ");
 
           mysqli_query($db,"UPDATE books SET quantity = quantity+1 where bid='$_POST[bid]' ");
+          $res=mysqli_query($db,"SELECT quantity from books where bid='$_POST[bid]' ;");
+	
+		while($row=mysqli_fetch_assoc($res))
+		{
+		  if($row['quantity']!=0)
+		  {
+			mysqli_query($db,"UPDATE books  SET status = 'Available' where bid='$_POST[bid]';");
+		  }
+		}
           
         }
       }
 
-    $c=0;
+    
 
    
          $ret='<p style="color:yellow; background-color:green;">RETURNED</p>';

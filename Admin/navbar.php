@@ -44,7 +44,7 @@
                   <li><a href="student.php">
                     STUDENT-INFORMATION
                   </a></li>
-                  <li><a href="fine.php">FINES</a></li>
+                  
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">

@@ -195,14 +195,14 @@ function closeNav() {
 		</form>
 	</div>
 	<!--___________________request book ko lagi__________________-->
-	<div class="srch">
+<!-- 	<div class="srch">
 		<form class="navbar-form" method="post" name="form1">
 			
 				<input class="form-control" type="text" name="bid" placeholder="Enter Book ID" required="">
 				<button style="background-color: #6db6b9e6;" type="submit" name="submit1" class="btn btn-default">Request
 				</button>
 		</form>
-	</div>
+	</div> -->
 
 
 	<h2>List Of Books</h2>
@@ -243,12 +243,13 @@ function closeNav() {
 				echo "<td>"; echo $row['quantity']; echo "</td>";
 				echo "<td>"; echo $row['department']; echo "</td>";
 				echo "<td>"; echo $row['bcount']; echo "</td>";
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1' class='btn btn-primary' value=" . $row['bid'] . "> Request </button></form>";  echo "</td>";
 
 				echo "</tr>";
 			}
 		echo "</table>";
 			}
-		}
+			}
 			/*if button is not pressed.*/
 		else
 		{
@@ -265,6 +266,7 @@ function closeNav() {
 				echo "<th>"; echo "Quantity";  echo "</th>";
 				echo "<th>"; echo "Department";  echo "</th>";
 				echo "<th>"; echo "NumberOfRequest";  echo "</th>";
+				echo "<th>"; echo "Action"; echo "</th>";
 
 			echo "</tr>";	
 
@@ -279,28 +281,63 @@ function closeNav() {
 				echo "<td>"; echo $row['quantity']; echo "</td>";
 				echo "<td>"; echo $row['department']; echo "</td>";
 				echo "<td>"; echo $row['bcount']; echo "</td>";
-
+				
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1' class='btn btn-primary' value=" . $row['bid'] . "> Request </button></form>";  echo "</td>";
+			//	echo "<td>"; echo "<i data-toggle='tooltip' data-placement='botton' title='PROCEED' class='btn btn-primary' name='submit1'></i> "; echo "</td>";			
+				
 				echo "</tr>";
+				
 			}
-		echo "</table>";
-		}
+			echo "</table>";
+			}
 
 		if(isset($_POST['submit1']))
 		{
+			$ids = $_POST['submit1']; //how to get id from post, google
+			//echo $ids;
+
 			if(isset($_SESSION['login_user']))
 			{	
-				$sql1=mysqli_query($db,"SELECT * FROM `books` WHERE bid='$_POST[bid]';");
+				
+				$sql1=mysqli_query($db,"SELECT * FROM `books` WHERE `bid`= '$ids';");
 				$row1=mysqli_fetch_assoc($sql1);
 				$count1=mysqli_num_rows($sql1);
+				//$bid=$_SESSION['reqbid'];
+			//	echo $_SESSION['login_user'];
+				
 				if($count1!=0)
 				{
-				mysqli_query($db,"INSERT INTO issue_book Values('$_SESSION[login_user]', '$_POST[bid]', '', '', '');");
+					$sql2=mysqli_query($db,"SELECT * FROM `issue_book` WHERE `username`='$_SESSION[login_user]' and `bid`='$ids'");
+					$row2=mysqli_fetch_assoc($sql2);
+				//	var_dump($row2);
+					$count2=mysqli_num_rows($sql2);
+					//echo $count2;
+					if($count2==0)
+					{
+				mysqli_query($db,"INSERT INTO issue_book Values('','$_SESSION[login_user]', '$ids', '', '', '');");
+			
+ 
+
+				
+
+				
 				?>
 					<script type="text/javascript">
-						window.location="request.php"
+						window.location="request.php" 
+					</script> 
+				<?php
+					}
+					else{
+						?>		
+						<script type="text/javascript">
+						alert("The book is already requested");
 					</script>
 				<?php
+
+
+					}
 				}
+				
 				else{
 					?>
 					<script type="text/javascript">
@@ -317,7 +354,10 @@ function closeNav() {
 					</script>
 				<?php
 			}
+			
 		}
+
+
 
 	?>
 </div>

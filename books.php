@@ -141,10 +141,10 @@
 
  
   <div class="h"> <a href="books.php">Books</a></div>
-  <div class="h"> <a href="pdf.php">PDF</a></div>
-  <div class="h"> <a href="request.php">Book Request</a></div>
-  <div class="h"> <a href="issue_info.php">Issue Information</a></div>
-  <div class="h"><a href="expired.php">Expired List</a></div>
+ 
+ 
+ 
+  
 </div>
 
 <div id="main">
@@ -181,14 +181,14 @@ function closeNav() {
 		</form>
 	</div>
 	<!--___________________request book ko lagi__________________-->
-	<div class="srch">
+<!-- 	<div class="srch">
 		<form class="navbar-form" method="post" name="form1">
 			
 				<input class="form-control" type="text" name="bid" placeholder="Enter Book ID" required="">
 				<button style="background-color: #6db6b9e6;" type="submit" name="submit1" class="btn btn-default">Request
 				</button>
 		</form>
-	</div>
+	</div> -->
 
 
 	<h2>List Of Books</h2>
@@ -215,6 +215,7 @@ function closeNav() {
 				echo "<th>"; echo "Quantity";  echo "</th>";
 				echo "<th>"; echo "Department";  echo "</th>";
 				echo "<th>"; echo "NumberOfRequest";  echo "</th>";
+				echo "<th>"; echo "";  echo "</th>";
 			echo "</tr>";	
 
 			while($row=mysqli_fetch_assoc($q))
@@ -228,6 +229,7 @@ function closeNav() {
 				echo "<td>"; echo $row['quantity']; echo "</td>";
 				echo "<td>"; echo $row['department']; echo "</td>";
 				echo "<td>"; echo $row['bcount']; echo "</td>";
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1' class='btn btn-primary' value=" . $row['bid'] . "> Request </button></form>";  echo "</td>";
 
 				echo "</tr>";
 			}
@@ -250,7 +252,7 @@ function closeNav() {
 				echo "<th>"; echo "Quantity";  echo "</th>";
 				echo "<th>"; echo "Department";  echo "</th>";
 				echo "<th>"; echo "NumberOfRequest";  echo "</th>";
-				echo "<th>"; echo "Barcode";  echo "</th>";
+				echo "<th>"; echo "";  echo "</th>";
 
 			echo "</tr>";	
 
@@ -265,6 +267,7 @@ function closeNav() {
 				echo "<td>"; echo $row['quantity']; echo "</td>";
 				echo "<td>"; echo $row['department']; echo "</td>";
 				echo "<td>"; echo $row['bcount']; echo "</td>";
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1' class='btn btn-primary' value=" . $row['bid'] . "> Request </button></form>";  echo "</td>";
 
 				echo "</tr>";
 			}

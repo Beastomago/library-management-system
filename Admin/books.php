@@ -145,6 +145,8 @@ function closeNav() {
 		</form> -->
 	</div>
 
+	<button style="color:blue; font-size: 16px; text-decoraton:none;" class="btn btn-primaray" ><a href="../Admin/add.php">
+	<span class="glyphicon glyphicon-plus" style="color:red; " > </a></span> Add Book</button>
 	<h2>List Of Books</h2>
 	<?php
 
@@ -182,8 +184,10 @@ function closeNav() {
 				echo "<td>"; echo $row['status']; echo "</td>";
 				echo "<td>"; echo $row['quantity']; echo "</td>";
 				echo "<td>"; echo $row['department']; echo "</td>";
-				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1'><i  style=\"color: red;\" class=\"glyphicon glyphicon-remove\"></i> remove</button></form>"; echo "</td>";
-				$_check['id']=$row['bid'];
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1' value =" . $row['bid'] ."><i  style=\"color: red;\" class=\"glyphicon glyphicon-remove\"></i> remove</button></form>"; echo "</td>";
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit2' value =" . $row['bid'] ."><i  style=\"color: green;\" class=\"glyphicon glyphicon-edit\"></i> remove</button>
+				</form>"; echo "</td>";
+				//$_check['id']=$row['bid'];
 
 				echo "</tr>";
 			}
@@ -195,7 +199,7 @@ function closeNav() {
 		{
 			$res=mysqli_query($db,"SELECT * FROM `books` ORDER BY `books`.`name` ASC;");
 
-		echo "<table class='table table-bordered table-hover' >";
+		echo "<table class='table table-bordered table-hover'  cellspacing=-115' cellpadding=-110>";
 			echo "<tr style='background-color: #6db6b9e6;'>";
 				//Table header
 				echo "<th>"; echo "ID";	echo "</th>";
@@ -205,6 +209,7 @@ function closeNav() {
 				echo "<th>"; echo "Status";  echo "</th>";
 				echo "<th>"; echo "Quantity";  echo "</th>";
 				echo "<th>"; echo "Department";  echo "</th>";
+				echo "<th>"; echo "";  echo "</th>";
 				echo "<th>"; echo "";  echo "</th>";
 			echo "</tr>";	
 
@@ -218,8 +223,11 @@ function closeNav() {
 				echo "<td>"; echo $row['status']; echo "</td>";
 				echo "<td>"; echo $row['quantity']; echo "</td>";
 				echo "<td>"; echo $row['department']; echo "</td>";
-				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1'><i  style=\"color: red;\" class=\"glyphicon glyphicon-remove\"></i> remove</button></form>"; echo "</td>";
-				$_check['id']=$row['bid'];
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1' value =" . $row['bid'] ." ><i  style=\"color: red;\" class=\"glyphicon glyphicon-remove\"></i> remove</button></form>"; echo "</td>";
+			echo "<td>"; ?><form method='post'><button type='submit' name='submit2' value =" . $row['bid'] ."><a href ="bookedit.php?id= <?php echo $row['bid'] ?> "><i  style="color: green;" class=glyphicon glyphicon-edit></i> edit</button>
+ 				
+			</form> <?php echo "</td>";
+			
 				echo "</tr>";
 			}
 		echo "</table>";
@@ -230,7 +238,7 @@ function closeNav() {
 		} */
 		if(isset($_POST['submit1']))
 		{
-			
+			$id= $_POST['submit1'];
 			
 			
 			if(isset($_SESSION['login_user1']))
@@ -257,6 +265,23 @@ function closeNav() {
 				<?php
 			}
 		}
+
+/* 		if(isset($_POST['submit2']))
+		{
+			$id= $_POST['submit2'];
+			
+			
+			if(isset($_SESSION['login_user1']))
+			{	
+				
+				?>
+ 				<script type="text/javascript">
+ 					window.location="../Admin/bookedit.php"
+ 				</script>
+ 				<?php
+				
+			}
+		} */
 		
 
 	?>

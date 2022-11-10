@@ -149,20 +149,30 @@
 <div class="container">
 	<div class="srch">
 		<br>
-		<form method="post" action="" name="form1">
+		<form class="navbar-form" method="post" name="form1">
+			
+			<input class="form-control" type="text" name="search" placeholder="requested.." >
+		<button style="background-color: #6db6b9e6;" type="submit" name="submit" class="btn btn-default">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+ 	</form>
+
+<!-- 		<form method="post" action="" name="form1">
 			<input type="text" name="username" class="form-control" placeholder="Username" required=""><br>
 			<input type="text" name="bid" class="form-control" placeholder="BID" required=""><br>
 			<button class="btn btn-default" name="submit" type="submit">Submit</button><br>
-		</form>
+		</form> -->
 	</div>
 
 	<h3 style="text-align: center;">Request of Book</h3>
+
+
 
 	<?php
 	
 	if(isset($_SESSION['login_user1']))
 	{
-		$sql= "SELECT student.username,roll,books.bid,name,authors,edition,status FROM student inner join issue_book ON student.username=issue_book.username inner join books ON issue_book.bid=books.bid WHERE issue_book.approve =''";
+		$sql= "SELECT student.username,roll,books.bid,name,authors,edition,status,id FROM student inner join issue_book ON student.username=issue_book.username inner join books ON issue_book.bid=books.bid WHERE issue_book.approve =''";
 		$res= mysqli_query($db,$sql);
 
 		if(mysqli_num_rows($res)==0)
@@ -177,6 +187,7 @@
 			echo "<tr style='background-color: #6db6b9e6;'>";
 				//Table header
 				
+				echo "<th>"; echo "#";  echo "</th>";
 				echo "<th>"; echo "Username";  echo "</th>";
 				echo "<th>"; echo "Roll No";  echo "</th>";
 				echo "<th>"; echo "BID";  echo "</th>";
@@ -184,12 +195,17 @@
 				echo "<th>"; echo "Authors Name";  echo "</th>";
 				echo "<th>"; echo "Edition";  echo "</th>";
 				echo "<th>"; echo "Status";  echo "</th>";
-				
+				echo "<th>"; echo "Accept" ; echo "</th>";
+				echo "<th>"; echo "Reject" ; echo "</th>";
 			echo "</tr>";	
+
+			$no =1;
+		$_SESSION['req_bid'] = array();
 
 			while($row=mysqli_fetch_assoc($res))
 			{
 				echo "<tr>";
+				echo "<td>"; echo $no; echo "</td>";
 				echo "<td>"; echo $row['username']; echo "</td>";
 				echo "<td>"; echo $row['roll']; echo "</td>";
 				echo "<td>"; echo $row['bid']; echo "</td>";
@@ -197,9 +213,27 @@
 				echo "<td>"; echo $row['authors']; echo "</td>";
 				echo "<td>"; echo $row['edition']; echo "</td>";
 				echo "<td>"; echo $row['status']; echo "</td>";
+				echo "<td>"; echo "<form method='post'>
+				<input type='hidden' name='bookid' value=" .$row['bid']. ">
+				<button type='submit' name='submit1' value=" . $row['id'] . " ;><i  style=\"color: red;\" class=\"glyphicon glyphicon-book\"> Procced</i></button>
 				
+				</form>"; echo "</td>";
+
+				echo "<td>"; echo "<form method='post'><button type='submit' name='submit2' value=" . $row['id'] . "><i  style=\"color: red;\" class=\"glyphicon glyphicon-trash\"></i></button>
+				</form>"; echo "</td>";
+			
+
 				echo "</tr>";
+				
+
+
+				$no++ ;
+
+
 			}
+
+		
+			
 		echo "</table>";
 		}
 	}
@@ -212,7 +246,7 @@
 		<?php
 	}
 
-	if(isset($_POST['submit']))
+/* 	if(isset($_POST['submit']))
 	{
 		$_SESSION['name']=$_POST['username'];
 		$_SESSION['bid']=$_POST['bid'];
@@ -222,9 +256,54 @@
 				window.location="approve.php"
 			</script>
 		<?php
-	}
+	} */
 
-	?>
+	if(isset($_POST['submit2']))
+	{
+		mysqli_query($db,"DELETE  from  `issue_book`  where `issue_book`.`id` = '$_POST[submit2]'  and approve = '';");
+
+		//echo "button pressed";
+		?>
+			<script type="text/javascript">
+				window.location="request.php"
+				</script>
+		<?php				
+	}
+	if(isset($_POST['submit1']))
+	{
+		//$ids = $_POST['submit1'];
+		 $_POST['bookid'];
+		
+		//echo "button working";
+		$d4=date('d-m-o');
+        echo "date4 is = $d4 <br>";
+        $newDate = date('d-m-o', strtotime($d4. ' + 6 months'));
+        echo $newDate ;
+
+		 mysqli_query($db,"UPDATE  `issue_book` SET  `approve` =  'Done', `issue` =  '$d4', `return` =  '$newDate' WHERE id = '$_POST[submit1]';");
+
+		mysqli_query($db,"UPDATE books SET quantity = quantity-1 where bid='$_POST[bookid]' ;");
+	
+		mysqli_query($db,"UPDATE books SET bcount = bcount+1 where bid='$_POST[bookid]' ;");
+	
+		$res=mysqli_query($db,"SELECT quantity from books where bid='$_POST[bookid]' ;");
+	
+		while($row=mysqli_fetch_assoc($res))
+		{
+		  if($row['quantity']==0)
+		  {
+			mysqli_query($db,"UPDATE books  SET status = 'not-available' where bid='$_POST[bookid]';");
+		  }
+		}
+		?>
+		  <script type="text/javascript">
+			alert("Updated successfully.");
+			window.location="request.php"
+		  </script>
+		<?php 
+	}
+	?> 
+	
 	</div>
 </div>
 </body>

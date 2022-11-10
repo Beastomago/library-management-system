@@ -17,7 +17,7 @@
 		}
 		
 		body {
-  background-color: lightpink;
+  background-color: white;
   font-family: "Lato", sans-serif;
   transition: background-color .5s;
 }
@@ -85,21 +85,23 @@
 }
 .form-control
 {
-  background-color: #080707;
+  background-color: blue;
   color: white;
   height: 40px;
 }
 .form-control1
 {
- /* background-color: black;*/
-  color: black;
+ /*background-color: yellow;*/
+  color: yellow;
   height: auto;
   font-size: 20px;
   float: left;
+  opacity: .9;
+
 }
 .form-control2
 {
- /* background-color: black;*/
+ /* background-color: red;*/
   color: black;
   height: auto;
   font-size: 15px;
@@ -111,10 +113,17 @@
   width:250px;
   height:350px;
   border: 2px solid grey;
-  background: lightgrey;
+  background-color: white;
   background-size: cover;
   text: 30px;
 } 
+.container
+{
+	height: 826px;
+	background-color: black;
+	opacity: .5;
+	color: white;
+}
 
 </style>
 
@@ -131,12 +140,12 @@
   			<div style="color: white; margin-left: 60px; font-size: 20px;">
 
                 <?php
-                if(isset($_SESSION['login_user']))
+                if(isset($_SESSION['login_user1']))
 
                 { 	echo "<img class='img-circle profile_img' height=120 width=120 src='images/".$_SESSION['pic']."'>";
                     echo "</br></br>";
 
-                    echo "Welcome ".$_SESSION['login_user']; 
+                    echo "Welcome ".$_SESSION['login_user1']; 
                 }
                 ?>
             </div><br><br>
@@ -151,27 +160,30 @@
 <div id="main">
   <span style="font-size:30px;cursor:pointer; color: black;" onclick="openNav()">&#9776; open</span>
   <div class="container" style="text-align: center;">
-    <h2 style="color:black; font-family: Lucida Console; text-align: center"><b>Add PDF</b></h2><br>
-    
-    <form class="book" action="" method="post">
+    <h2 style="color:green; font-family: Lucida Console; text-align: center"><b>Add PDF</b></h2><br>
+    <!--<div class="containers"> -->
+    <form class="book" action="" method="post" enctype="multipart/form-data">
         
 <!--         <input type="text" name="bid" class="form-control" placeholder="Book id" required=""><br>
 <div  id="display_image"></div><br><br> -->
-                
+               
 <img id ="image_input"><br>    
       <br>
-      <input class="form-control2"type="file" accept="image/*" required="" onchange="preview_image(event)"> <br><br>
+      
+      <input class="form-control2"type="file" accept="image/*" name="image" required="" onchange="preview_image(event)"> <br><br>
       <lable class="form-control1"><b>Choose Your PDF File:-></b></lable><br><br>
-      <input class="form-control2" type="file" name="pdf"  accept=".pdf" required=""> <br><br>
-        <input type="text" name="name" class="form-control" placeholder="PDF Name" required=""><br>
-        <input type="text" name="authors" class="form-control" placeholder="Authors Name" required=""><br>
+      <input class="form-control2" type="file" name="pdf_file"  accept=".pdf" required=""> <br><br>
+        <input type="text" name="name" class="form-control" placeholder="PDF Name" required=""></input><br>
+        <input type="text" name="authors" class="form-control" placeholder="Authors Name" required=""></input><br>
         
 
-        <button style="text-align: center;" class="btn btn-default" type="submit" name="submit">ADD</button>
-    </form>
-  </div>
-
+        <button style="text-align: center;" class="btn btn-primary" type="submit" name="submit">Upload</button>
+        
+      </form>
+        </div>
+    </div>
 </div>
+              
 <script>
 function openNav() {
   document.getElementById("mySidenav").style.width = "300px";
@@ -211,5 +223,27 @@ function preview_image(event) {
 
 </script>
 
+<?php
+    if (isset($_POST['submit'])) {
+ 
+      move_uploaded_file($_FILES['image']['tmp_name'],"images/".$_FILES['image']['name']);
+      move_uploaded_file($_FILES['pdf_file']['tmp_name'],"pdf/".$_FILES['pdf_file']['name']);
+			  $name = $_POST['name'];
+      $authors= $_POST['authors'];
+			$image=$_FILES['image']['name'];
+      $pdf=$_FILES['pdf_file']['name'];
+
+		
+      mysqli_query($db,"INSERT INTO pdf_data VALUES ('','$name','$authors','$image','$pdf');");
+?>
+<script>
+           alert("PDF added successful");
+
+  </script>
+<?php
+  }
+?>
+
 </body>
 
+</html>

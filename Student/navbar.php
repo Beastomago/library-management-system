@@ -40,7 +40,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                
-                  <li><a href="">
+                  <li><a href="profile.php">
                     <div style="color: white">
                       <?php
                         echo "<img class='img-circle profile_img' height=30 width=30 src='images/".$_SESSION['pic']."'>";

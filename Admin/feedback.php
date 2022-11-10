@@ -48,11 +48,11 @@
 <body>
 
 	<div class="wrapper">
-		<h4>If you have any suggesions or questions please comment below.</h4>
-		<form style="" action="" method="post">
+		<h4>FEEDBACK.</h4>
+<!-- 		<form style="" action="" method="post">
 			<input class="form-control" type="text" name="comment" placeholder="Write something..."><br>	
 			<input class="btn btn-default" type="submit" name="submit" value="Comment" style="width: 100px; height: 35px;">		
-		</form>
+		</form> -->
 	
 <br><br>
 	<div class="scroll">

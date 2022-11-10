@@ -152,9 +152,9 @@
     <form class="Approve" action="" method="post">
         <input class="form-control" type="text" name="approve" placeholder="Yes or No" required=""><br>
 
-        <input type="text" name="issue" placeholder="Issue Date yyyy-mm-dd" required="" class="form-control"><br>
+        <input type="datetime-local" name="issue" placeholder="Issue Date yyyy-mm-dd" required="" class="form-control"><br>
 
-        <input type="text" name="return" placeholder="Return Date yyyy-mm-dd" required="" class="form-control"><br>
+        <input type="date" name="return" placeholder="Return Date yyyy-mm-dd" required="" class="form-control"><br>
         <button class="btn btn-default" type="submit" name="submit">Approve</button>
     </form>
   

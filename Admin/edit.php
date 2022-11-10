@@ -20,10 +20,11 @@
 		{
 			color: white;
 		}
+		
 
 	</style>
 </head>
-<body style="background-color: #004528;">
+<body style="background-color: grey;">
 
 	<h2 style="text-align: center;color: #fff;">Edit Information</h2>
 	<?php
@@ -90,7 +91,7 @@
 			$contact=$_POST['contact'];
 			$pic=$_FILES['file']['name'];
 
-			$sql1= "UPDATE admin SET pic='$pic', first='$first', last='$last', username='$username', password='$password', email='$email', contact='$contact' WHERE username='".$_SESSION['login_user']."';";
+			$sql1= "UPDATE admin SET pic='$pic', first='$first', last='$last', username='$username', password='$password', email='$email', contact='$contact' WHERE username='".$_SESSION['login_user1']."';";
 
 			if(mysqli_query($db,$sql1))
 			{

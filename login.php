@@ -85,7 +85,9 @@ label{
       if($_POST['user']=='admin')
       {
         $count=0;
-        $res=mysqli_query($db,"SELECT * FROM `admin` WHERE username='$_POST[username]' && password='$_POST[password]' && status='yes';");
+        $username = mysqli_real_escape_string($db, $_POST['username']);
+        $password = mysqli_real_escape_string($db, $_POST['password']);
+        $res=mysqli_query($db,"SELECT * FROM `admin` WHERE username='$username' && password='$password' && status='yes';");
   
         $row= mysqli_fetch_assoc($res);
   
@@ -121,7 +123,10 @@ label{
       else
       {
       $count=0;
-      $res=mysqli_query($db,"SELECT * FROM `student` WHERE username='$_POST[username]' && password='$_POST[password]'");
+
+      $username = mysqli_real_escape_string($db, $_POST['username']);
+      $password = mysqli_real_escape_string($db, $_POST['password']);
+      $res=mysqli_query($db,"SELECT * FROM `student` WHERE username='$username' && password='$password'");
       
       $row= mysqli_fetch_assoc($res);
       $count=mysqli_num_rows($res);

@@ -51,8 +51,8 @@
           <input class="form-control" type="text" name="username" placeholder="Username" required=""> <br>
           <input class="form-control" type="password" name="password" placeholder="Password" required=""> <br>
           <input class="form-control" type="text" name="roll" placeholder="Roll No" required=""><br>
-          <input class="form-control" type="text" name="email" placeholder="Email" required=""><br>
-          <input class="form-control" type="text" name="contact" placeholder="Phone No" required=""><br>
+          <input class="form-control" type="email" name="email" placeholder="Email" required=""><br>
+          <input class="form-control" type="number" name="contact" placeholder="Phone No" required=""><br>
 
           <input class="btn btn-default" type="submit" name="submit" value="Sign Up" style="color: black; width: 70px; height: 30px"> </div>
       </form>
@@ -75,15 +75,16 @@
           if($row['username']==$_POST['username'])
           {
             $count=$count+1;
+            echo $count;
           }
         }
         if($count==0)
         {
           mysqli_query($db,"INSERT INTO `STUDENT` VALUES('$_POST[first]', '$_POST[last]', '$_POST[username]', '$_POST[password]', '$_POST[roll]', '$_POST[email]', '$_POST[contact]', 'p.jpg');");
         ?>
-        <!--   <script type="text/javascript">
+         <script type="text/javascript">
            alert("Registration successful");
-          </script> -->
+          </script> 
 
       <script type="text/javascript">
         window.location="../login.php"

@@ -160,7 +160,7 @@ th,td
 
       if(isset($_SESSION['login_user1']))
       {
-        $sql="SELECT student.username,roll,books.bid,name,authors,edition,issue,issue_book.return FROM student inner join issue_book ON student.username=issue_book.username inner join books ON issue_book.bid=books.bid WHERE issue_book.approve ='Yes' ORDER BY `issue_book`.`return` ASC";
+        $sql="SELECT student.username,roll,books.bid,name,authors,edition,issue,issue_book.return FROM student inner join issue_book ON student.username=issue_book.username inner join books ON issue_book.bid=books.bid WHERE issue_book.approve ='Done' ORDER BY `issue_book`.`return` ASC";
         $res=mysqli_query($db,$sql);
         
         
@@ -184,7 +184,7 @@ th,td
         echo "<table class='table table-bordered' >";
       while($row=mysqli_fetch_assoc($res))
       {
-        $d=date("Y-m-d");
+   /*      $d=date("Y-m-d");
         if($d > $row['return'])
         {
           $c=$c+1;
@@ -194,7 +194,7 @@ th,td
           
           echo $d."</br>";
         }
-
+ */
         echo "<tr>";
           echo "<td>"; echo $row['username']; echo "</td>";
           echo "<td>"; echo $row['roll']; echo "</td>";
