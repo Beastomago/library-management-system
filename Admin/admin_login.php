@@ -74,7 +74,7 @@
         /*-------------if username & password matches---*/
 
         $_SESSION['login_user1'] = $_POST['username']; 
-        $_SESSION['pic']= $row['pic'];
+        $_SESSION['pic1']= $row['pic'];
 
         ?>
           <script type="text/javascript">

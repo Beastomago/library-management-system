@@ -111,7 +111,7 @@
                 <?php
                 if(isset($_SESSION['login_user1']))
 
-                { 	echo "<img class='img-circle profile_img' height=120 width=120 src='images/".$_SESSION['pic']."'>";
+                { 	echo "<img class='img-circle profile_img' height=120 width=120 src='images/".$_SESSION['pic1']."'>";
                     echo "</br></br>";
 
                     echo "Welcome ".$_SESSION['login_user1']; 

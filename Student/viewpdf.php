@@ -135,16 +135,17 @@
                     echo "</br></br>";
 
                     echo "Welcome ".$_SESSION['login_user']; 
+                    
                 }
                 ?>
             </div><br><br>
 
  
   <div class="h"> <a href="books.php">Books</a></div>
-  <div class="h"> <a href="pdf.php">PDF</a></div>
+  <div class="h"> <a href="viewpdf.php">PDF</a></div>
   <div class="h"> <a href="request.php">Book Request</a></div>
   <div class="h"> <a href="issue_info.php">Issue Information</a></div>
-  <div class="h"><a href="expired.php">Expired List</a></div>
+  <!-- <div class="h"><a href="expired.php">Expired List</a></div> -->
 </div>
 
 <div id="main">
@@ -225,7 +226,7 @@ function closeNav() {
                         echo "<th>"; echo "Image";	echo "</th>";
                         echo "<th>"; echo "Pdf-Name";  echo "</th>";
                         echo "<th>"; echo "Authors Name";  echo "</th>";
-                        echo "<th>"; echo "NumberOfView";  echo "</th>";
+                        echo "<th>"; echo "PDF";  echo "</th>";
                         echo "</tr>";	
 
                     while($row=mysqli_fetch_assoc($q))
@@ -255,7 +256,7 @@ function closeNav() {
 				echo "<th>"; echo "Image";	echo "</th>";
 				echo "<th>"; echo "Pdf-Name";  echo "</th>";
 				echo "<th>"; echo "Authors Name";  echo "</th>";
-				echo "<th>"; echo "NumberOfView";  echo "</th>";
+				echo "<th>"; echo "PDF";  echo "</th>";
 
 			echo "</tr>";	
 
@@ -265,84 +266,75 @@ function closeNav() {
 				echo "<td>"; echo "<img style= 'height: 100px; width: 100px;' src='../Admin/images/".$row['image']."'>"; echo "</td>";
 				echo "<td>"; echo $row['name']; echo "</td>";
 				echo "<td>"; echo $row['authors']; echo "</td>";
-/* 				echo "<td>"; echo $row['bcount']; echo "</td>";
- */				echo "<td>"; echo "<form method='post'><button type='submit' name='submit1' class='btn btn-primary' value=" . $row['id'] . "> View </button></form>";  echo "</td>";
+			//	echo "<td>"; echo "<img src='../Admin/images/".$row['image']."'>"; echo "</td>";
+/* 				echo "<td>"; echo $row['bcount']; echo "</td>";<a href='../Admin/pdf/Advance Java.pdf' target=_nextpage style=\"color:white\";>
+ */				
 
+				echo "<td>"; echo "<form method='post' action='pdfviewer.php' target='_blank'>
+				<input type='hidden' name='pdff' value=" .$row['pdf_file']. ">
+				<button type='submit' name='submit1' class='btn btn-primary'  value=" 
+				. $row['id'] . ">View </button></form>";  echo "</td>";
+								
 				echo "</tr>";
 				
 			}
 			echo "</table>";
 			}
-
-		if(isset($_POST['submit1']))
-		{
-			/* $ids = $_POST['submit1'];  *///how to get id from post, google
-			//echo $ids;
-
-			if(isset($_SESSION['login_user']))
-			{	
-				
-				$sql1=mysqli_query($db,"SELECT * FROM `books` WHERE `bid`= '$ids';");
-				$row1=mysqli_fetch_assoc($sql1);
-				$count1=mysqli_num_rows($sql1);
-				//$bid=$_SESSION['reqbid'];
-			//	echo $_SESSION['login_user'];
-				
-				if($count1!=0)
-				{
-					$sql2=mysqli_query($db,"SELECT * FROM `issue_book` WHERE `username`='$_SESSION[login_user]' and `bid`='$ids'");
-					$row2=mysqli_fetch_assoc($sql2);
-				//	var_dump($row2);
-					$count2=mysqli_num_rows($sql2);
-					//echo $count2;
-					if($count2==0)
-					{
-				mysqli_query($db,"INSERT INTO issue_book Values('','$_SESSION[login_user]', '$ids', '', '', '');");
 			
- 
 
+		// if(isset($_POST['submit1']))
+		// {
+		// 	$jpg=$_POST['pdff'];
+		// 	 $pdf = $jpg;  ///how to get id from post, google
+		// 	//echo $ids;
+
+		// 	if(isset($_SESSION['login_user']))
+		// 	{	
+			
+	
+        //      
+			
+		
+		?>
+		
+		
+		
+		
+		
+		
+		
+		<!--<iframe src="../Admin/pdf/Advance Java.pdf &embedded=true" width=600px; height=500px></iframe>--><?php
+		// 	}
+		// }
+/* 			?>
+<?php 
+header('Content-type: application/pdf'); 
+header('Content-Disposition: inline; filename=Admin/pdf/$pdf'); 
+header('Content-Transfer-Encoding: binary'); 
+header('Accept-Ranges: bytes'); 
+@readfile('Admin/pdf/$pdf');  
+ob_end_flush();
+?>
+
+
+  
+// Header content type
+header('Content-type: application/pdf');
+  
+header('Content-Disposition: inline; filename="' . $filename . '"');  
+  
+// Read the file
+@readfile($file);
+<?php
+            }
 				
 
-				
-				?>
-					<script type="text/javascript">
-						window.location="request.php" 
-					</script> 
-				<?php
-					}
-					else{
-						?>		
-						<script type="text/javascript">
-						alert("The book is already requested");
-					</script>
-				<?php
-
-
-					}
-				}
-				
-				else{
-					?>
-					<script type="text/javascript">
-						alert("The book is not avaiable in the library");
-					</script>
-				<?php
-				}
-			}
-			else
-			{
-				?>
-					<script type="text/javascript">
-						alert("You must login to Request a book");
-					</script>
-				<?php
-			}
 			
 		}
 
 
-
-	?>
+*/ 
+	?> 
 </div>
 </body>
 </html>

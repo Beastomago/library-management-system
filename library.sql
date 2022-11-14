@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2022 at 04:20 AM
+-- Generation Time: Nov 14, 2022 at 11:12 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -157,7 +157,7 @@ INSERT INTO `issue_book` (`id`, `username`, `bid`, `approve`, `issue`, `return`)
 (28, 'a', 11, '<p style=\"color:yellow; background-color:green;\">RETURNED</p>', '05-11-2022', '05-01-2024'),
 (36, 'a', 10, 'Done', '06-11-2022', '06-05-2023'),
 (40, 'a', 14, 'Done', '08-11-2022', '08-05-2023'),
-(47, 'a', 13, 'Done', '09-11-2022', '09-05-2023'),
+(47, 'a', 13, 'Done', '09-11-2022', '12-11-2022'),
 (49, 'a', 19, '', '', '');
 
 -- --------------------------------------------------------
@@ -179,10 +179,11 @@ CREATE TABLE `pdf_data` (
 --
 
 INSERT INTO `pdf_data` (`id`, `name`, `authors`, `image`, `pdf_file`) VALUES
-(1, 'check 1', 'checkkkk', '9.png', ''),
-(2, 'check2', 'notme', 'download.png', 'Advance Java.pdf'),
-(3, 'check2', 'notme', 'download.png', 'Advance Java.pdf'),
-(4, 'fake', 'notme', '9.png', 'Java Network Programming, 4th Edition.pdf');
+(1, 'check 1', 'checkkkk', '9.png', 'AdvanceJava.pdf'),
+(2, 'check2', 'notme', 'download.png', 'AdvanceJava.pdf'),
+(3, 'check2', 'notme', 'download.png', 'AdvanceJava.pdf'),
+(4, 'fake', 'notme', '9.png', 'Triloon.pdf'),
+(5, 'fake', 'notme', 'TeamLogo2.png', 'Triloon.pdf');
 
 -- --------------------------------------------------------
 
@@ -210,6 +211,7 @@ INSERT INTO `student` (`first`, `last`, `username`, `password`, `roll`, `email`,
 ('Afifa ', 'Ashraf', 'Afifa', '121212', 1510047, 'afifa@gmail.com', '1739000001', 'p.jpg'),
 ('b', 'b', 'b', 'b', 12, 'bbb@gmail.com', '123456789', 'p.jpg'),
 ('c', 'c', 'c', 'c', 112, 'c@gmail.com', '12345678', 'p.jpg'),
+('check', 'k', 'check', '1', 1111, 'ab@gmail.com', '12345', 'p.jpg'),
 ('sanzida', 'mou', 'Mim', '555555', 324, 'mim@gmail.com', '53454', 'p.jpg'),
 ('Afia', 'Abida', 'Promi', '111111', 1, 'afia1@gmail.com', '000000000', '7996_3d_modeling_5.jpg'),
 ('Mr.', 'Rahman', 'Rahman', '212324', 1510016, 'samiarahman@gmail.com', '123456', 'p.jpg'),
@@ -288,7 +290,7 @@ ALTER TABLE `issue_book`
 -- AUTO_INCREMENT for table `pdf_data`
 --
 ALTER TABLE `pdf_data`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

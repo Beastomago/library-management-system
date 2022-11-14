@@ -196,6 +196,9 @@ function closeNav() {
 
 		if(isset($_POST['submit']))
 		{
+			/* $limit = 3;
+			$page=$_GET['page'];
+			$offset = ($page - 1)* $limit; */
 			$q=mysqli_query($db,"SELECT * from books where name like '%$_POST[search]%' OR authors like '%$_POST[search]%' OR bid like '%$_POST[search]%' OR department like '%$_POST[search]%'");
 
 			if(mysqli_num_rows($q)==0)
@@ -239,7 +242,13 @@ function closeNav() {
 			/*if button is not pressed.*/
 		else
 		{
-			$res=mysqli_query($db,"SELECT * FROM `books` ORDER BY `books`.`bid` ASC;");
+			$limit = 3;
+			if(isset($_GET['page'])){
+			$page=$_GET['page'];}else{$page=1;
+			}
+			$offset = ($page - 1)* $limit;
+
+			$res=mysqli_query($db,"SELECT * FROM `books` ORDER BY `books`.`bid` ASC LIMIT {$offset},{$limit};");
 
 		echo "<table class='table table-bordered table-hover' >";
 			echo "<tr style='background-color: #6db6b9e6;'>";
@@ -272,6 +281,34 @@ function closeNav() {
 				echo "</tr>";
 			}
 		echo "</table>";
+		//echo"hello";
+		$res1=mysqli_query($db,"SELECT * FROM `books` ORDER BY `books`.`bid` ASC;");
+		if(mysqli_num_rows($res1) > 0){
+			$total_records = mysqli_num_rows($res1);
+			
+			$total_page = ceil($total_records / $limit);
+
+			echo '<ul class="pagination admin-pagination" style=color:red;>';
+			if($page > 1){
+				echo '<li><a href="books.php?page='.($page -1).'">Prev</a></li>';
+
+			}
+		
+			for($i = 1; $i <= $total_page; $i++){
+				if($i == $page){
+					$active= "active";
+				}
+				else{
+					$active="";
+				}
+				echo '<li class ="'.$active.'"><a href="books.php?page='.$i.'">'.$i.'</a></li>';
+			}
+			if($total_page > $page){
+				echo '<li><a href="books.php?page='.($page + 1).'">Next</a></li>';
+
+			}
+			echo '</ul>';
+		}
 		}
 
 		if(isset($_POST['submit1']))

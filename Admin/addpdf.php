@@ -17,7 +17,7 @@
 		}
 		
 		body {
-  background-color: white;
+  background-color: lightblue;
   font-family: "Lato", sans-serif;
   transition: background-color .5s;
 }
@@ -142,7 +142,7 @@
                 <?php
                 if(isset($_SESSION['login_user1']))
 
-                { 	echo "<img class='img-circle profile_img' height=120 width=120 src='images/".$_SESSION['pic']."'>";
+                { 	echo "<img class='img-circle profile_img' height=120 width=120 src='images/".$_SESSION['pic1']."'>";
                     echo "</br></br>";
 
                     echo "Welcome ".$_SESSION['login_user1']; 
@@ -152,7 +152,7 @@
 
             <div class="h"> <a href="books.php">Books</a></div>
             <div class="h"> <a href="add.php">Add Books</a> </div> 
-            <div class="h"> <a href="delete.php">Delete Books</a></div>
+            
             <div class="h"> <a href="request.php">Book Request</a></div>
             <div class="h"> <a href="issue_info.php">Issue Information</a></div>
         </div>
@@ -188,13 +188,13 @@
 function openNav() {
   document.getElementById("mySidenav").style.width = "300px";
   document.getElementById("main").style.marginLeft = "300px";
-  document.body.style.backgroundColor = "lightblue";
+  document.body.style.backgroundColor = "lightpink";
 }
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
-  document.body.style.backgroundColor = "lightpink";
+  document.body.style.backgroundColor = "lightblue";
 }
 
 /* const image_input = document.querySelector("#image_input");

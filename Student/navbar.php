@@ -35,7 +35,7 @@
           ?>
                 <ul class="nav navbar-nav">
                   <li><a href="profile.php">PROFILE</a></li>
-                  <li><a href="fine.php">FINES</a></li>
+                  
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -77,14 +77,16 @@
       while($row=mysqli_fetch_assoc($res))
       {
         $d= strtotime($row['return']);
-        $c= strtotime(date("Y-m-d"));
+        $c= strtotime(date("d-m-0"));
         $diff= $c-$d;
-
-        if($diff>=0)
+        echo "c";
+        echo $c;
+echo $diff/(60*60*24);//Days
+       /*  if($diff>=0)
         {
           $day= $day+floor($diff/(60*60*24)); 
         } //Days
-        
+         */
       }
       $_SESSION['fine']=$day*.10;
     }
